@@ -1,5 +1,6 @@
 import Blow from "./blow";
 import Brick from "./brick";
+import Laser from "./laser";
 import { JumpSmoke } from "./particle";
 
 class Player extends Phaser.GameObjects.Sprite {
@@ -36,6 +37,7 @@ class Player extends Phaser.GameObjects.Sprite {
     this.A = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.S = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.D = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+    this.X = this.scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.X);
   }
 
   /*
@@ -176,8 +178,14 @@ class Player extends Phaser.GameObjects.Sprite {
       Phaser.Input.Keyboard.JustDown(this.S)
     )
       this.buildBlock();
+
+      if(Phaser.Input.Keyboard.JustDown(this.X)) this.shoot();
   }
 
+  shoot() {
+    console.log(this)
+    this.scene.shootsGroup.add(new Laser(this.scene, this.x, this.y, this.flipX ? 'left' : 'right'))
+  }
   /*
     This is called when the player hits the floor. It creates smoke particles. It reuses the jumpSmoke method.
     */

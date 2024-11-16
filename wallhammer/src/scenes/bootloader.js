@@ -119,6 +119,11 @@ export default class Bootloader extends Phaser.Scene {
       frameWidth: 64,
       frameHeight: 64,
     });
+    
+    this.load.spritesheet("laser", "assets/images/laser.png", {
+      frameWidth: 32,
+      frameHeight: 32
+    });
 
     this.load.bitmapFont(
       "hammerfont",
