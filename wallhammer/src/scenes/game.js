@@ -239,7 +239,6 @@ export default class Game extends Phaser.Scene {
   shootHitPlatform(shoot, platform) {
     shoot.death();
     const tile = this.getTile(platform);
-    console.log(tile);
     if (this.isBreakable(tile)) {
       this.playAudioRandomly("stone_fail");
       this.playAudioRandomly("stone");

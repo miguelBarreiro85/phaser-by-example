@@ -102,6 +102,15 @@ class Player extends Phaser.GameObjects.Sprite {
       repeat: 2,
     });
 
+
+    this.scene.anims.create({
+      key: "playershootright",
+      frames: this.scene.anims.generateFrameNumbers("walt", {
+        start: 16,
+        end: 18
+      }),
+    })
+
     this.scene.anims.create({
       key: "playerdead",
       frames: this.scene.anims.generateFrameNumbers("walt", {
@@ -165,7 +174,7 @@ class Player extends Phaser.GameObjects.Sprite {
         this.jumping = false;
         this.falling = false;
 
-        if (!this.building) this.anims.play("playeridle", true);
+        if (!this.building && !this.shooting) this.anims.play("playeridle", true);
       }
 
       this.body.setVelocityX(0);
@@ -179,11 +188,17 @@ class Player extends Phaser.GameObjects.Sprite {
     )
       this.buildBlock();
 
-      if(Phaser.Input.Keyboard.JustDown(this.X)) this.shoot();
+    if(Phaser.Input.Keyboard.JustDown(this.X)) this.shoot();
   }
 
   shoot() {
     console.log(this)
+    if(!this.shooting) {
+      setTimeout(() => this.shooting = false, 200)
+    }
+
+    this.shooting = true;
+    this.anims.play("playershootright", true);
     this.scene.shootsGroup.add(new Laser(this.scene, this.x, this.y, this.flipX ? 'left' : 'right'))
   }
   /*
